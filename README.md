@@ -43,7 +43,7 @@
 
 评估：
 
-1.numeric、int、char、varchar、decimal、float。decimal的独特之处。
+1.numeric、int、char、varchar、decimal、float。其中decimal的独特之处。
 
 2.schema设定时建议用英文；半角英文和全角的区别，用用半角英文符；不区分大小写。
 
@@ -67,6 +67,93 @@ false or unknown is unknown
 
 not unknown is unknown
 ```
+另：
+1.模糊查询的like语句以及字符的匹配操作、转义字符\有哪些、如何进行值的拼接||。
+
+2.作业总结：对于psql的运用
+首先需要进入是输入密码
+其次通过\l、\dt查看所有的库及表
+通过\c university切换到university库并进行操作
+
+## 第五周 ##
+
+学习在datagrip从登录到连接数据库，并搭建好环境（注意SQL SHELL中的操作）→导入数据并配置源→运行sql文件→尝试SQL基本操作
+
+评估：能做到基本语句的撰写和判断错误
+
+1.<>---!=
+
+2.匹配字符% 、_
+
+3.对于null（与false、true的交并，not null =null）、know、unknow的认知和理解
+
+4.判定bool时应用is know和is unkown
+
+5.coalesce的使用例如coalesce（salary，0）是将为空的salary变为0并输出
+
+6.聚集函数 max 、min avg
+
+7.where的合法性：其后的条件应该是一一比照的，而不能一对多，其后面不能用聚集函数
+
+8.having后可以跟聚集函数，having一般结合group by使用，是基于group by进行筛选的
+
+9.嵌套语句的使用，case end 语句要重点掌握；至少比某一个要大用'> some'、大于所有用'> ALL()';ORDER BY （RANDOM等） LIMIT + num的使用，
+
+10.需要重点练习avg等聚合函数、group by等今日所学语句的合法性辨认。
+
+
+## 第六至八周 ##
+
+回顾评估：
+1.join语句，写了join必须要写on
+
+```
+select *  
+from student left join takes  
+on student.id = takes.id; 
+
+select *  
+from student left join takes  
+using(id);  
+  
+select *  
+from student left join takes  
+on true  
+where student.id = takes.id;
+```
+
+2.on vs  where结果要一样就必须是自然连接
+
+left join  right join用union结合两者来替代 full outer join
+
+多表查询-- 自然连接-- join on/using( ...)-- 
+```
+SELECT *  
+FROM student  
+NATURAL LEFT JOIN takes;
+
+select *  
+from student left join takes  
+on student.id = takes.id; 
+
+二者时等价的
+```
+3.对于case语句的用法和写的位置不熟练，对于链接的概念还是有待进一步学习理解，
+
+4.对于标量子语句不熟悉：什么是标量子语句
+
+5.对于子查询结果较多时用exist查询而不建议用in，对于with建立临时关系的用法不太熟悉，但是感觉用途非常广泛
+其例子如下：
+
+```sql
+with total(value,dept_name) as
+    (select sum(salary),dept_name from instructor group by dept_name )
+select dept_name,value
+from total
+where value = (select max(value) from total);
+```
+
+6.可以多多借助网站https://www.w3schools.com/sql/sql_join.asp 进行复习
 
 
 
