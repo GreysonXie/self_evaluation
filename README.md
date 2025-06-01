@@ -153,7 +153,11 @@ from total
 where value = (select max(value) from total);
 ```
 
-6.可以多多借助网站https://www.w3schools.com/sql/sql_join.asp 进行复习
+6.可以多多借助网站https://www.w3schools.com/sql/sql_join.asp 进行复习.对于time、timestamp及类型转换有很多需要用法，需要多加回顾和练习
+
+7.创建角色与连接数据库需要掌握，在后面的大作业可能用到
+
+8.补充：serial的使用，实现id自增
 
 
 
