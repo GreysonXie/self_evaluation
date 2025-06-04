@@ -192,7 +192,7 @@ where value = (select max(value) from total);
 
 3.pg_dump和uv等的使用需要自己去拓展加深了解对于期末项目有帮助。
 
-*课后项目学习评估*： 通过借助AI，独自完成了智能家居系统的fastapi的页面创建。总结如下：
+## **课后项目学习评估**： 通过借助AI，独自完成了智能家居系统的fastapi的页面创建。总结如下：
 
 1.需要给AI说清楚你所会的技能和软件是什么，如我掌握了python和SQL的基础语法，常用软件为pycharm和datagrip，pgsql。
 
