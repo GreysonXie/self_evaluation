@@ -252,17 +252,67 @@ where value = (select max(value) from total);
 
 ## 第11-12周 ##
 
-### **学习主题**：关系数据库范式。
+### **学习主题**：关系数据库范式————无损分解是好的关系数据库设计的基础
 
 ### 学习路径：
 
-
+大小模式的区别---->无损分解---->几大范式（尤其是BCNF）---->平凡依赖、依赖闭包
 
 #### 学习回顾评估：
 
 1.听的第一遍还是不太能判断哪些符合BCNF,再借助AI辅导和做课后习题下大致掌握了判断技巧，但是对于得出所有的非平凡实体集需要注意，一些非平凡实体集α→β的α可以通过与其他属性结合从而构成新的非平凡实体集，所以需要谨慎。
+最开始由于对*平凡函数*依赖（AB->A,AB->B即母集推出子集）理解不够，所以判断失误。
 
-2，
+`BCNF`
+
+具有函数依赖集F的关系模式R属于BCNF的条件是,对 $F^+$中所有形如α→β的函数依赖,下面至少一个成立:
+
+- α→β是平凡的函数依赖
+- α是R的一个超码
+
+2.大模式存在数据重复的问题，所以需要分解，但是随意分解很容易造成信息损失，因此因此BCNF的出现为分解提供了很好的准则————无损分解。
+
+3.符合规范（normal）的东西即为好 —— good form
+
+4.模式分解还是把握不到位。
+
+
+## 第13-14周 ##
+
+### 主题：实现数据库
+
+### 学习路径：
+
+python与数据库的连接通过python---->环境的配置和在python执行指令实现数据的增和删---->数据库存储
+
+
+#### 学习评估：
+
+1.简洁方便的方法是直接使用pycharm创建项目。直接配好环境，安装相关的包：psycopg[binary]、psycopg2-binary。
+
+```python
+import psycopg
+from sqlalchemy.orm import Session#我自己来连接数据库使用的sqlalchemy，这个复杂一些。
+# Update the conn as you need
+with psycopg.connect("dbname=mydb user=postgres port=5432 password=213108") as conn:
+    with conn.cursor() as cur:
+        cur.execute("SELECT * FROM department")
+        records = cur.fetchall()
+        print(records)
+```
+2.数据库存储的知识做了解。
+
+3.把握PGSQL的page的内容组织、page与page之间组织
+
+4.page layout得分页槽结构比较有意思。
+
+5.存储模型：行存储和列存储。能够对什么时候用什么存储模型有一个基本的判断。
+
+6.metadata展示的是数据得信息，在期末项目得第一个项目里可能用得到，可以尝试了解
+
+
+## 第15周 ##
+
 
 
 
