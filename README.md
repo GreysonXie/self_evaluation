@@ -350,13 +350,73 @@ Btree的每一个node 可以有多个key，这也就意味着，data量一定的
 7.PG中索引代码示例：
 
 ```sql
-
-
+SELECT indexname, indexdef
+FROM pg_indexes
+WHERE tablename = 'student';
+```
+student_pkey
+CREATE UNIQUE INDEX student_pkey
+ON public.student USING btree (id)
+```sql
+SELECT
+ indexname,
+ pg_relation_filepath(indexname::regclass) as file_path
+FROM pg_indexes
+WHERE tablename = 'student';
 ```
 
 8.索引不一定提高查询性能，例如在数据量较少时，即基数小不适合建立index。
 
-9.page过多时，可以基于page再建page。
+9.
+```sql
+EXPLAIN ANALYSE
+SELECT * FROM instructor
+WHERE id = '33456';
+```
+查看语句运行，使用索引来查找
+```sql
+EXPLAIN ANALYSE
+SELECT * FROM instructor
+WHERE name = 'Gold';
+```
+使用扫描来查找
+```sql
+CREATE TABLE test_index(
+id int,
+name varchar(100)
+);
+```
+创建表
+```sql
+INSERT INTO test_index(id, name)
+(SELECT generate_series(0, 1000000),
+gen_random_uuid());
+```
+生成数据
+```sql
+EXPLAIN ANALYZE SELECT * FROM test_index
+WHERE id BETWEEN 100 AND 500;
+```
+查询内容，并行查找。
+```sql
+CREATE INDEX id_idx ON test_index(id);
+```
+创建索引来再查找，速度快了很多，若采用ahsh index，则速度很慢，因为data量很大，还不如用scan。
+
+10.page过多时，可以基于page再建page。
+
+11.执行查询计划之前会受到optimizer的影响，尽可能先执行σ（选择）。
+
+#### 评估：
+
+1.对于hash index，我还是没有把握，什么时候该用hash和什么时候用有序index。
+
+2.对于tuple对比，的几个习题，自己做的时候不太懂，讲解以后才把握到一些，需要进一步学习。
+
+3.对于index的一些基本特征基本了解了。
+
+
+
 
 
 
