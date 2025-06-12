@@ -416,6 +416,22 @@ CREATE INDEX id_idx ON test_index(id);
 3.对于index的一些基本特征基本了解了。
 
 
+## 第16周 ##
+
+###学习评估：
+
+1.对于DuckDB的优点和使用方式基本了解，感觉是一个python+SQL的结合体，克服了python无法高效读取过大文件的缺陷，效率更高，是处理大数据的好工具
+
+2.duckDB的语法结构基本沿袭了PG，且使用方便，UI页面很好用。
+
+3.《duckDB in action》参考书目
+
+4.拓展的slidev、papuet都可以进一步了解。
+
+5.vector DB，是现在很流行的DB，在我们过往的数据分析中其实很多都应用到其中的原理，可以迁移学习理解。尝试用PG中的向量DB插件看看效果。
+
+
+
 
 
 
